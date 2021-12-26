@@ -1,6 +1,0 @@
-# This file is used internally by FFMPEG.
-file 'file:/home/sholto/scalingExperiments/media/videos/scalingExperiments/720p30/partial_movie_files/MovingAround/1342159004_2558768006_2155998392.mp4'
-file 'file:/home/sholto/scalingExperiments/media/videos/scalingExperiments/720p30/partial_movie_files/MovingAround/1353618911_3170667507_412690057.mp4'
-file 'file:/home/sholto/scalingExperiments/media/videos/scalingExperiments/720p30/partial_movie_files/MovingAround/1353618911_3762574623_2001312901.mp4'
-file 'file:/home/sholto/scalingExperiments/media/videos/scalingExperiments/720p30/partial_movie_files/MovingAround/1353618911_615028649_2117049817.mp4'
-file 'file:/home/sholto/scalingExperiments/media/videos/scalingExperiments/720p30/partial_movie_files/MovingAround/1353618911_4138509535_2117049817.mp4'
