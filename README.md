@@ -4,7 +4,7 @@ A minimal implementation of a multi-device sharded transformer training, and a w
 
 ![Alt Text](https://github.com/sholtodouglas/scalingExperiments/raw/main/media/sharding.gif)
 
-For production ready code, look at the Deepspeed library (for Pytorch), or GPT-J (Jax). Currently this repo focused purely on exploring memory/compute distribution in multi-gpu training - it could be further optimised through using float16, gcp streaming of tfrecords for dataloader, learning rate schedules etc
+For production ready code, look at the Deepspeed library (for Pytorch), or GPT-J (Jax). Currently this repo focused purely on exploring memory/compute distribution in multi-gpu training for a GPT style transformer - it could be further optimised through using float16, gcp streaming of tfrecords for dataloader, learning rate schedules etc
 
 This code uses the megatron-LM/GPT-J data+tensor parallelism scheme, which is simple and efficient on hardware meshes like TPUs. Soon, I'd like to look at pipeline parallelism, implement ZeRO style sharding - and use Ray to coordinate a K8s cluster of TPUv2s (for all those times you don't have a TPUvX-256!)
 
