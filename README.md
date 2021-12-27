@@ -8,7 +8,7 @@ This should be run on a TPU (either through GCP / TRC or Colab) as that gives us
 
 A couple of resources that I've leant on:
 
-- [Lilian Weng's superb notes on training large models](https://lilianweng.github.io/lil-log/2021/09/24/train-large-neural-networks.html)
+- [Lilian Weng's notes on training large models](https://lilianweng.github.io/lil-log/2021/09/24/train-large-neural-networks.html)
 - [Ben Wang's GPT-J](https://github.com/kingoflolz/mesh-transformer-jax)
 - [Karpathy's MinGPT](https://github.com/karpathy/minGPT)
 
