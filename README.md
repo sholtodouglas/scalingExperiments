@@ -21,6 +21,6 @@ A couple of resources that I've leant on:
 
 ## Usage
 1. Run setup.sh (required for jax memory profiling).
-2. Either work through the tutorial notebook, or run train.py. ~1 hour of training produces results identifiably shakespearean/ structured like a play. 
+2. Either work through the tutorial notebook, or run train.py. ~1 hour of training produces results identifiably Shakespearean output which is structured like a play. 
 
 
