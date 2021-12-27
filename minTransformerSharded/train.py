@@ -6,14 +6,13 @@ import jax
 GPTConfig = {
     'n_vocab': 66,
     'block_size': 32,
-    'n_layer' : 12,
+    'n_layer' : 3,
     'n_head' : 8,
-    'd_model' : 1536,
+    'd_model' : 768,
     'shards': 2,
     'devices': 4,
     'batch_size_per_parallel': 256,
     'ckpt_dir': 'test'}
-
 
 # A downside of using the more memory efficient method of embedding sharding is that it requires equal shard size across devices
 # or a 'check which device I'm on, lookup desired shard size'. For the moment - easier to just have a few empty spots for tokens.
