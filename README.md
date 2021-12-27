@@ -1,4 +1,4 @@
-# scalingExperiments
+# Scaling experiments
 
 A minimal implementation of a multi-device sharded transformer training, and a walk through of each component. The intention is educational - we'll build the required elements from the ground up and understand exactly where each computation is going. For production ready code, look at the Deepspeed library (for Pytorch), or GPT-J (Jax). Currently this repo focused purely on exploring and multi-gpu training - it could be further optimised through using float16, gcp streaming of tfrecords for dataloader, learning rate schedules etc
 
