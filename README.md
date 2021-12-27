@@ -1,6 +1,6 @@
 # Scaling experiments
 
-A minimal implementation of a multi-device sharded transformer training, and a walk through of each component. The intention is educational - we'll build the required elements from the ground up and understand exactly where each computation is going. This is made exceptionally easy by jax, which is beautiful to work with on hardware meshes. All up it is only ~100 lines more than minGPT, with many of those as extensive comments. 
+A minimal implementation of a multi-device sharded transformer training, and a walk through of each component. The intention is educational - we'll build the required elements from the ground up and understand exactly where each computation is going. This is made exceptionally easy by jax, which is beautiful to work with on hardware meshes. All up it is only ~100 lines more than minGPT, with many of those as comments.
 
 ![Alt Text](https://github.com/sholtodouglas/scalingExperiments/raw/main/media/sharding.gif)
 
