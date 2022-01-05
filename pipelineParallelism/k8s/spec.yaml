@@ -1,0 +1,43 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: gke-tpu-pod
+  annotations:
+     # The Cloud TPUs that will be created for this Job will support
+     # TensorFlow 2.6.0. This version MUST match the
+     # TensorFlow version that your model is built on.
+     tf-version.cloud-tpus.google.com: "2.6.0"
+spec:
+  restartPolicy: Never
+  containers:
+  - name: gke-tpu-container
+    # The official TensorFlow 2.6.0 image.
+    # https://hub.docker.com/r/tensorflow/tensorflow
+    image: tensorflow/tensorflow:2.6.0
+    command:
+    - python
+    - -c
+    - |
+      import tensorflow as tf
+      print("Tensorflow version " + tf.__version__)
+
+      tpu = tf.distribute.cluster_resolver.TPUClusterResolver('$(KUBE_GOOGLE_CLOUD_TPU_ENDPOINTS)')
+      print('Running on TPU ', tpu.cluster_spec().as_dict()['worker'])
+
+      tf.config.experimental_connect_to_cluster(tpu)
+      tf.tpu.experimental.initialize_tpu_system(tpu)
+      strategy = tf.distribute.TPUStrategy(tpu)
+
+      @tf.function
+      def add_fn(x,y):
+          z = x + y
+          return z
+
+      x = tf.constant(1.)
+      y = tf.constant(1.)
+      z = strategy.run(add_fn, args=(x,y))
+      print(z)
+    resources:
+      limits:
+        # Request a single Preemptible v2-8 Cloud TPU device to train the model.
+        cloud-tpus.google.com/preemptible-v2: 8
