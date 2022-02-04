@@ -4,7 +4,7 @@ import time
 
 import ray
 
-ray.init()
+ray.init(address='auto')
 
 print('''This cluster consists of
     {} nodes in total
