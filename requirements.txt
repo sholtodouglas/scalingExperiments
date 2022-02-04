@@ -3,3 +3,4 @@ optax
 tensorflow_datasets
 dm-haiku==0.0.5
 ray
+mpi4jax 
