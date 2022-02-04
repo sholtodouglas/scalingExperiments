@@ -1,6 +1,0 @@
-gcloud container clusters create trainingcluster \
-  --release-channel=stable \
-  --scopes=cloud-platform \
-  --enable-ip-alias \
-  --enable-tpu \
-  --zone=us-central1-f

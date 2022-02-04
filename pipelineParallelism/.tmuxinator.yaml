@@ -1,0 +1,18 @@
+name: scaling
+root: ~/
+windows:
+- servers:
+    layout: tiled
+    panes:
+    - test_0:
+      - clear
+    - test_1:
+      - clear
+    - test_2:
+      - clear
+    - test_3:
+      - clear
+    - test_4:
+      - clear
+    - test_5:
+      - clear
