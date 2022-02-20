@@ -5,7 +5,8 @@ cluster_config = {
     "project": "learning-from-play-303306",
     "accelerator_type": "v2-8",
     "zone": "us-central1-f",
-    "preemptible": False
+    "preemptible": False,
+    "redis_password": "5241590000000000" # the default
 }
 
 constant_args = f"--zone={cluster_config['zone']} --project={cluster_config['project']}"

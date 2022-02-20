@@ -11,6 +11,8 @@ import psutil
 
 import yaml 
 
+LEADER = 0 # the leader node is the 0th
+
 def make_tmux():
     names = construct_cluster_names(cluster_config['nodes'])
 
@@ -74,12 +76,19 @@ def connect():
             pass
             # tmux("set pane-border-style bg=red,fg=red") # make it red for failing to connect
 
-def run(cmd):
-    panes_to_connect_to = [int(name.split('_')[-1]) for name in construct_cluster_names(cluster_config['nodes'])]
-    connections = [conn.laddr.port for conn in psutil.net_connections()] 
-    active_panes = [pane for pane in panes_to_connect_to if 8800 + pane in connections]
+def run(cmd, pane=None):
 
-    for pane in active_panes:
+    # run it on all of them
+    if pane == None:
+        panes_to_connect_to = [int(name.split('_')[-1]) for name in construct_cluster_names(cluster_config['nodes'])]
+        connections = [conn.laddr.port for conn in psutil.net_connections()] 
+        active_panes = [pane for pane in panes_to_connect_to if 8800 + pane in connections]
+
+        for pane in active_panes:
+            tmux(f'select-pane -t {pane}')
+            tmux_shell(cmd)
+    # run on a specific pane
+    else:
         tmux(f'select-pane -t {pane}')
         tmux_shell(cmd)
 
