@@ -7,7 +7,7 @@ from tqdm import tqdm
 
 from infra.config import cluster_config, constant_args
 
-@functools.lru_cache() # TODO this can error if it has been a while since it is called. 
+# @functools.lru_cache() # TODO this can error if it has been a while since it is called. 
 def get_bearer():
     return subprocess.check_output("gcloud auth print-access-token", shell=True).decode("utf-8").strip()
 
@@ -35,7 +35,7 @@ def list_tpus():
     return response.json()
 
 
-def create_tpu(name, preemptible=True):
+def create_tpu(name):
     print(f"Creating {name}")
     headers = {
         'Authorization': f'Bearer {get_bearer()}',
@@ -52,10 +52,9 @@ def create_tpu(name, preemptible=True):
                 'v2-alpha',
             "network_config":
                 {"enable_external_ips": True},
+            "schedulingConfig": 
+                {"preemptible": cluster_config['preemptible']},
             }
-
-    if preemptible:
-        data["schedulingConfig"] = {"preemptible": True}
 
     response = requests.post(f"https://tpu.googleapis.com/v2alpha1/projects/{cluster_config['project']}/locations/{cluster_config['zone']}/nodes",
                              headers=headers, params=params, json=data)
@@ -106,11 +105,11 @@ def delete_tpu(name):
 def construct_cluster_names(N: int):
     return [f"{cluster_config['name']}_{n}" for n in range(0, N)]
 
-def scale_cluster(N: int):
-    existing_tpus = list_tpus()['nodes']
+def scale_cluster():
+    existing_tpus = list_tpus().get('nodes', []) 
 
     # determine what we need to create 
-    to_construct = construct_cluster_names(N)
+    to_construct = construct_cluster_names(cluster_config['nodes'])
 
     # start the existing, but stopped nodes
     for node in existing_tpus:
@@ -132,11 +131,31 @@ def scale_cluster(N: int):
 
     
 
-def validate_cluster(N: int):
+def validate_cluster():
     print('Validating cluster creation')
-    for name in tqdm(construct_cluster_names(N)):
+    for name in tqdm(construct_cluster_names(cluster_config['nodes'])):
         try:
             if check_tpu(name)['state'] != 'READY':
                 print(f"Failed: {name}")
         except:
             print(f"TPU {name} not found")
+
+
+def chunks(l, n):
+    n = max(1, n)
+    return (l[i:i+n] for i in range(0, len(l), n))
+
+
+def get_pipelines():
+    ''' 
+    Takes the currently active nodes and arranges them into full length pipelines
+    If there are insufficient nodes for the final pipeline, they are ignored. 
+    '''
+    tpus = list_tpus().get('nodes', []) 
+
+    if len(tpus) < cluster_config['pipeline_length']:
+        raise Exception('Insufficient Devices to form a pipeline')
+
+    complete_pipelines = [p for p in chunks(tpus, cluster_config['pipeline_length']) if len(p) == cluster_config['pipeline_length']]
+    
+    return complete_pipelines

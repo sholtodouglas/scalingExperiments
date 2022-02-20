@@ -41,4 +41,4 @@ We should have a continously running process which performs the following steps
 
   
 
-  tmuxinator start scaling -p .tmuxinator.yml
+  tmuxinator start scaling -p .tmuxinator.yaml

@@ -1,3 +1,4 @@
+
 name: scaling
 root: ~/
 windows:
@@ -11,10 +12,4 @@ windows:
     - test_2:
       - clear
     - test_3:
-      - clear
-    - test_4:
-      - clear
-    - test_5:
-      - clear
-    - test_6:
       - clear
