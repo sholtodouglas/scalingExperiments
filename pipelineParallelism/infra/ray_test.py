@@ -3,7 +3,7 @@ import socket
 import time
 
 import ray
-from .config import  cluster_config, constant_args
+from config import  cluster_config, constant_args
 
 ray.init(address='auto', _redis_password=cluster_config['redis_password'])
 
