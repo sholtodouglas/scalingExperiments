@@ -66,3 +66,14 @@ gcloud compute os-login ssh-keys add \
 gcloud compute os-login ssh-keys add \
     --key-file= /home/sholto/.ssh/google_compute.pub \
     --project=learning-from-play-303306
+
+
+
+Enable each machine to access the others
+https://www.open-mpi.org/faq/?category=running#missing-prereqs
+https://github.com/NAThompson/mpi_clustering
+
+
+ssh-keygen -t rsa -f $HOME/.ssh/id_rsa -N '' -C "MPI Keys"
+
+Need to make sure each device shares an ssh key
