@@ -5,6 +5,10 @@ import requests
 import subprocess
 from tqdm import tqdm
 
+
+from fabric import Connection
+import os
+
 from infra.config import cluster_config, constant_args
 
 # @functools.lru_cache() # TODO this can error if it has been a while since it is called. 
@@ -103,7 +107,7 @@ def delete_tpu(name):
     return response.json()
 
 def construct_cluster_names(N: int):
-    return [f"{cluster_config['name']}_{n}" for n in range(0, N)]
+    return [f"{cluster_config['name']}-{n}" for n in range(0, N)]
 
 def scale_cluster():
     existing_tpus = list_tpus().get('nodes', []) 
@@ -156,6 +160,14 @@ def get_pipelines():
     if len(tpus) < cluster_config['pipeline_length']:
         raise Exception('Insufficient Devices to form a pipeline')
 
+    # create a connection object for each tpu to allow for easy file copy
+    for tpu in tpus:
+        tpu['connection_object'] = Connection(tpu['networkEndpoints'][0]['accessConfig']['externalIp'], connect_kwargs={
+                                      "key_filename": os.path.expanduser('~/.ssh/google_compute_engine'), })
+
+    # arrange them in pipelines
     complete_pipelines = [p for p in chunks(tpus, cluster_config['pipeline_length']) if len(p) == cluster_config['pipeline_length']]
     
     return complete_pipelines
+
+

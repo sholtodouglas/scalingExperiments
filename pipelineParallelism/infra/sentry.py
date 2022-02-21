@@ -60,7 +60,7 @@ def connect():
     # start the existing, but stopped nodes
     for name in to_connect:
 
-        pane  = int(name.split('_')[-1])
+        pane  = int(name.split('-')[-1])
         port = 8800 + pane
         tmux(f'select-pane -t {pane}')
 
@@ -80,7 +80,7 @@ def run(cmd, pane=None):
 
     # run it on all of them
     if pane == None:
-        panes_to_connect_to = [int(name.split('_')[-1]) for name in construct_cluster_names(cluster_config['nodes'])]
+        panes_to_connect_to = [int(name.split('-')[-1]) for name in construct_cluster_names(cluster_config['nodes'])]
         connections = [conn.laddr.port for conn in psutil.net_connections()] 
         active_panes = [pane for pane in panes_to_connect_to if 8800 + pane in connections]
 
@@ -94,7 +94,7 @@ def run(cmd, pane=None):
 
 
 def clear_all():
-    panes_to_connect_to = [int(name.split('_')[-1]) for name in construct_cluster_names(cluster_config['nodes'])]
+    panes_to_connect_to = [int(name.split('-')[-1]) for name in construct_cluster_names(cluster_config['nodes'])]
     for pane in panes_to_connect_to:
         tmux(f'select-pane -t {pane}')
         tmux_shell('clear')

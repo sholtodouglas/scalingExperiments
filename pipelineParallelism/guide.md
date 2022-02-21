@@ -42,3 +42,27 @@ We should have a continously running process which performs the following steps
   
 
   tmuxinator start scaling -p .tmuxinator.yaml
+
+
+
+  # GCP setup
+
+  Create a project with TPU accces
+
+  Create an ssh key called 'google_compute_engine', and add it to the project.  
+  '''
+ssh-keygen -t rsa
+
+
+gcloud compute os-login ssh-keys add \
+    --key-file=KEY_FILE_PATH.pub \
+    --project=PROJECT
+
+  '''
+
+ 
+
+
+gcloud compute os-login ssh-keys add \
+    --key-file= /home/sholto/.ssh/google_compute.pub \
+    --project=learning-from-play-303306

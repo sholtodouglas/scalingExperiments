@@ -7,7 +7,7 @@ from config import  cluster_config, constant_args
 
 ray.init(address='auto', _redis_password=cluster_config['redis_password'])
 
-print('''This cluster consists of
+print('''This cluster $ consists of
     {} nodes in total
     {} CPU resources in total
 '''.format(len(ray.nodes()), ray.cluster_resources()['CPU']))
