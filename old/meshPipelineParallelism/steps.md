@@ -8,7 +8,8 @@ Create a config at infra/config.py
 python infra/config.py
 
 # run tmuxinator to set up the work space
- tmuxinator start scaling -p infra/.tmuxinator.yaml
+tmuxinator start scaling -p infra/.tmuxinator.yaml
+
 ```
 
 

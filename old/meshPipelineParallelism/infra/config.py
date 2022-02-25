@@ -1,8 +1,6 @@
-import os 
-dir_path = os.path.dirname(os.path.realpath(__file__))
-
 cluster_config = {
-    'nodes': 1,
+    'nodes': 4,
+    'pipeline_length': 2,
     'name': "test",
     "project": "learning-from-play-303306",
     "accelerator_type": "v2-8",
@@ -26,7 +24,7 @@ windows:
     layout: tiled
     panes:'''
 
-    with open(dir_path+'/.tmuxinator.yaml', 'w') as file:
+    with open('.tmuxinator.yaml', 'w') as file:
 
         
         panes = "".join([f'''

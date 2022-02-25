@@ -1,0 +1,8 @@
+name: iterate
+root: ~/
+windows:
+  - one:
+      panes:
+        <%- args.each do |arg| %>
+        - echo <%= arg %>
+        <%- end %>

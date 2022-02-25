@@ -7,3 +7,9 @@ windows:
     panes:
     - test_0:
       - clear
+    - test_1:
+      - clear
+    - test_2:
+      - clear
+    - test_3:
+      - clear
